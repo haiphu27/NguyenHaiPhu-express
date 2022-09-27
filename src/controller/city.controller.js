@@ -1,10 +1,12 @@
+const cityModal=require('../models/city.model')
 
 
 class CityController{
     constructor(){}
 
     async listCity(req, res, next){
-
+        cityModal.getListCity()
+            .then(result =>)
     }
       async addACity(req, res, next){
 

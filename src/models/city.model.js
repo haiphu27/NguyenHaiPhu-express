@@ -5,7 +5,7 @@ module.exports=class CityModal{
     constructor() {
     }
 
-    static listCity(){
+    static getListCity(){
         return new Promise(function(resolve, reject){
             let sql=`select * from City`
             connectMySQL.query(sql,(err,result)=>{
@@ -17,7 +17,7 @@ module.exports=class CityModal{
         })
     }
 
-    static addCity(name,area){
+    static insertCity(name,area){
         return new Promise(function(resolve, reject){
             let sql=`insert into City(name,type) values('${name}','${area}')`
             connectMySQL.query(sql,(err,result)=>{
