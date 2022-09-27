@@ -1,14 +1,12 @@
 const express=require('express')
-const app = express()
-
 const cors=require('cors')
+
+const app = express()
 require('dotenv').config()
-const session=require('express-session')
 
 const cityRoutes=require('./routes/city.router')
 
-const connectDB=require('./models/db')
-
+const cityDB=require('./models/db')
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -16,7 +14,7 @@ app.use(express.urlencoded({
 app.use(cors())
 
 
-connectDB.connect()
+cityDB.connect()
     .then(() => {
       console.log("database connected")
     })
@@ -24,13 +22,13 @@ connectDB.connect()
       console.log(err.message)
     })
 
-app.get('api/test',(req,res)=>{
+app.get('/api/test',(req,res)=>{
     res.send('api test fix lan 1')
 })
 
 app.use('/api/city',cityRoutes)
 
-const port = process.env.PORT
-app.listen(port, () => {
-  console.log("You are listening on https://localhost:"+port);
-});
+const PORT = process.env.PORT||3000
+app.listen(PORT, () => {
+  console.log("You are listening on http://localhost:"+PORT)
+})

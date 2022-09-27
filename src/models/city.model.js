@@ -1,14 +1,12 @@
-const connectMySQL=require('./db').connectMySQL()
+const cityDB=require('./db')
 
 module.exports=class CityModal{
-
-    constructor() {
-    }
+    constructor() {}
 
     static getListCity(){
         return new Promise(function(resolve, reject){
             let sql=`select * from City`
-            connectMySQL.query(sql,(err,result)=>{
+            cityDB.query(sql,(err,result)=>{
                 if (err){
                     reject(err);
                 }
@@ -19,29 +17,37 @@ module.exports=class CityModal{
 
     static insertCity(name,area){
         return new Promise(function(resolve, reject){
-            let sql=`insert into City(name,type) values('${name}','${area}')`
-            connectMySQL.query(sql,(err,result)=>{
+            let sql=`insert into City(name,area) values('${name}','${area}')`
+            cityDB.query(sql,(err,result)=>{
                 if (err){
                     reject(err);
                 }
-                resolve(result);
+                resolve({msg:"add success",data:{name,area}});
             })
         })
     }
-
-    static deleteCity(req,res){
-        const id=req.params.id
+     static updateCity(id,name,area){
         return new Promise(function(resolve, reject){
-            let sql=`delete from City where idCity ='${id}'`
-            connectMySQL.query(sql,(err,result)=>{
+            let sql=`UPDATE city SET name='${name}',area='${area}' WHERE idcity='${id}'`
+            cityDB.query(sql,(err,result)=>{
                 if (err){
                     reject(err);
                 }
-                resolve('delete success');
+                resolve({msg:"update success",data:{name,area}});
             })
         })
     }
 
-
+    static deleteCity(id){
+        return new Promise(function(resolve, reject){
+            let sql=`delete from City where idcity ='${id}'`
+            cityDB.query(sql,(err,result)=>{
+                if (err){
+                    reject(err);
+                }
+                resolve({msg:'delete success',data:{name,area}});
+            })
+        })
+    }
 
 }
