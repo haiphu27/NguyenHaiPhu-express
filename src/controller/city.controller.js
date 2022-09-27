@@ -6,7 +6,10 @@ class CityController{
 
     async listCity(req, res, next){
         cityModal.getListCity()
-            .then(result =>)
+            .then(result =>{
+                res.status(200).json(result)
+            })
+            .catch(err =>throw err)
     }
       async addACity(req, res, next){
 
