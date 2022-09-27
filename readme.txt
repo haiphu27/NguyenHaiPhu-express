@@ -1,0 +1,8 @@
+npm i
+
+.env-example
+PORT
+HOST
+USER
+PASSWORD
+DATABASE
