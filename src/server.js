@@ -25,7 +25,7 @@ connectDB.connect()
     })
 
 app.get('api/test',(req,res)=>{
-    res.send('api test')
+    res.send('api test fix lan 1')
 })
 
 app.use('/api/city',cityRoutes)
