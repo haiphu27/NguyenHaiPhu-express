@@ -14,7 +14,7 @@ class CityController {
             // cityModal.getListCity()
             await axios.get('https://jsonplaceholder.typicode.com/comments')
                 .then(async result => {
-                    await client.set(key, JSON.stringify(result.data));
+                    await client.setex(key,3600, JSON.stringify(result.data));
                     return res.json(result.data);
                 }).catch(err => {
                 return res.json({status: 500, message: err.message});
