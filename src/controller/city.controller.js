@@ -1,15 +1,21 @@
 const cityModal = require('../models/city.model')
-const redis = require('redis')
+const redis = require("redis");
+const axios = require("axios");
 
 class CityController {
     constructor() {
     }
 
     async listCity(req, res, next) {
+        const key = req.route.path.split('/')[1];
         try {
-            cityModal.getListCity()
+            const client = redis.createClient();
+            await client.connect();
+            // cityModal.getListCity()
+            await axios.get('https://jsonplaceholder.typicode.com/comments')
                 .then(async result => {
-                    return res.json(result);
+                    await client.set(key, JSON.stringify(result.data));
+                    return res.json(result.data);
                 }).catch(err => {
                 return res.json({status: 500, message: err.message});
             })
@@ -19,7 +25,7 @@ class CityController {
     }
 
     addCity(req, res, next) {
-        try{
+        try {
             cityModal.insertCity(req.body.name, req.body.area)
                 .then(result => {
                     res.status(200).json(result)
@@ -33,7 +39,7 @@ class CityController {
     }
 
     deleteCity(req, res, next) {
-        try{
+        try {
             cityModal.deleteCity(req.params.id)
                 .then(result => {
                     res.status(200).json(result)
@@ -47,7 +53,7 @@ class CityController {
     }
 
     updateCity(req, res, next) {
-        try{
+        try {
             cityModal.updateCity(req.params.id, req.body.name, req.body.area)
                 .then(result => {
                     res.status(200).json(result)
