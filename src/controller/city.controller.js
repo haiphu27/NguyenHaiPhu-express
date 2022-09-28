@@ -40,7 +40,7 @@ class CityController {
 
     deleteCity(req, res, next) {
         try {
-            cityModal.deleteCity(req.params.id)
+            cityModal.deleteCity(req.query.id)
                 .then(result => {
                     res.status(200).json(result)
                 })
@@ -54,7 +54,7 @@ class CityController {
 
     updateCity(req, res, next) {
         try {
-            cityModal.updateCity(req.params.id, req.body.name, req.body.area)
+            cityModal.updateCity(req.query.id, req.body.name, req.body.area)
                 .then(result => {
                     res.status(200).json(result)
                 })
