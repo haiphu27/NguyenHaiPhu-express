@@ -23,11 +23,10 @@ cityDB.connect()
 
 const routePath = path.join(__dirname, 'routes');
 fs.readdirSync(routePath).forEach(async (filename) => {
-    // let route = path.join(routePath, filename);
-   //  let a=('./routes/'+filename)
     try {
         let name= filename.split('.')[0]
-        app.use(`/api/${name}`,require(`./routes/city.router`));
+        let pathFile ='./routes/'+filename
+        app.use(`/api/${name}`,require(pathFile));
     } catch (error) {
         console.log(error.message);
     }
