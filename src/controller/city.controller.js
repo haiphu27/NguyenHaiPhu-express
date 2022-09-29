@@ -1,6 +1,6 @@
 const cityModal = require('../models/city.model')
 const axios = require("axios");
-const redisClient =require('../models/redis-config')
+const {set} =require('../models/redis-config')
 
 class CityController {
     constructor() {
@@ -11,8 +11,8 @@ class CityController {
         try {
             // await axios.get('https://jsonplaceholder.typicode.com/comments')
             cityModal.getListCity()
-                .then(async result => {
-                    await redisClient.set(key,JSON.stringify(result),{
+                .then( result => {
+                   set(key,JSON.stringify(result),{
                         EX:3600
                     });
                     return res.json(result);
