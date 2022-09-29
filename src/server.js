@@ -4,11 +4,11 @@ require('dotenv').config()
 const pool = require('./models/db')
 const fs = require('fs')
 const path = require('path')
-const redisClient = require('./models/redis-config');
+const {config} = require('./models/redis-config');
 
 const app = express()
 
-redisClient.connect().then(() => {
+config.connect().then(() => {
     console.log('connected to redis!!');
 });
 
