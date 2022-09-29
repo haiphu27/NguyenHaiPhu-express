@@ -1,10 +1,8 @@
-const redis = require("redis");
+const redisClient =require('../models/redis-config')
 
 module.exports=async function cache(req, res, next) {
     const key = req.route.path.split('/')[1];
-    const client=redis.createClient();
-    await client.connect();
-    const value= await client.get(key);
+    const value= await redisClient.get(key);
     if(value!==null) {
         return res.json(JSON.parse(value));
     }else {
